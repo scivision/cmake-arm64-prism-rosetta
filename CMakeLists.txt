@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.14...3.24)
+cmake_minimum_required(VERSION 3.20...3.30)
 
-project(DetectRosetta LANGUAGES CXX)
+project(DetectRosetta LANGUAGES C CXX)
 
 enable_testing()
 
@@ -11,9 +11,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
   add_test(NAME HasAVX COMMAND has_avx)
 endif()
 
-add_executable(is_rosetta is_rosetta.cpp)
-get_target_property(osx_arch is_rosetta OSX_ARCHITECTURES)
-add_test(NAME CPP_Rosetta COMMAND is_rosetta)
+add_executable(is_rosetta_c is_rosetta.c)
+add_test(NAME C_Rosetta COMMAND is_rosetta_c)
+
+add_executable(is_rosetta_cpp is_rosetta.cpp)
+get_target_property(osx_arch is_rosetta_cpp OSX_ARCHITECTURES)
+add_test(NAME CPP_Rosetta COMMAND is_rosetta_cpp)
+
 message(STATUS "OSX_ARCHITECTURES: ${osx_arch}")
 
 find_package(Python COMPONENTS Interpreter)

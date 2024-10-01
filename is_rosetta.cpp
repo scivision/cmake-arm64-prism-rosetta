@@ -19,7 +19,7 @@ bool is_rosetta(){
       throw;
    }
 
-   return (ret == 1);
+   return ret == 1;
 #else
    return false;
 #endif
