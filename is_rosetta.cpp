@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cerrno>
+#include <cstdlib>
 
 #ifdef __APPLE__
 #include <sys/sysctl.h>

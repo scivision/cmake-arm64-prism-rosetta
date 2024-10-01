@@ -1,6 +1,8 @@
 // MacOS specific
 
 #include <iostream>
+#include <cstdlib>
+#include <cerrno>
 
 #include <sys/sysctl.h>
 
