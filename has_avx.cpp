@@ -26,12 +26,7 @@ bool has_avx2(){
 
 int main() {
 
-  if (has_avx2()) {
-    std::cout << " has AVX2" << std::endl;
-  }
-  else {
-    std::cout << " does not have AVX2" << std::endl;
-  }
+std::cout << (has_avx2() ? " has AVX2\n" : " does not have AVX2\n");
 
-  return EXIT_SUCCESS;
+return EXIT_SUCCESS;
 }
