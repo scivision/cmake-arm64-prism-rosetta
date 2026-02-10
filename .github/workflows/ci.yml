@@ -14,16 +14,19 @@ jobs:
         arch: [x64, arm64]
 
     steps:
-      - uses: actions/checkout@v6
+      - &checkout
+        uses: actions/checkout@v6
 
       - name: Configure CMake
         run: cmake -Bbuild -A ${{ matrix.arch }} -G "Visual Studio 18 2026"
 
-      - name: Build
+      - &build-release
+        name: Build
         run: cmake --build build --config Release
 
         # Prism is only for x64 on arm64 CPU, not the other way around
-      - name: Test
+      - &test-x64
+        name: Test
         if: matrix.arch == 'x64'
         run: ctest --test-dir build -V -C Release
 
@@ -36,18 +39,15 @@ jobs:
         arch: [x64, arm64]
 
     steps:
-      - uses: actions/checkout@v6
+      - *checkout
 
       - name: Configure CMake
         run: cmake -Bbuild -A ${{ matrix.arch }}
 
-      - name: Build
-        run: cmake --build build --config Release
+      - *build-release
 
       # Prism is only for x64 on arm64 CPU, not the other way around
-      - name: Test
-        if: matrix.arch == 'x64'
-        run: ctest --test-dir build -V -C Release
+      - *test-x64
 
   macos:
     runs-on: macos-latest
@@ -58,7 +58,7 @@ jobs:
         arch: [x86_64, arm64]
 
     steps:
-      - uses: actions/checkout@v6
+      - *checkout
 
       - name: Configure CMake
         run: cmake -Bbuild -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
