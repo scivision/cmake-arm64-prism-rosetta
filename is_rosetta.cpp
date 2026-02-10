@@ -27,7 +27,7 @@ bool is_rosetta(){
 
 int main(int argc, char ** argv) {
 
-std::cout << argv[0] << " is " << (is_rosetta() ? "" : "not") << " running under Rosetta.\n";
+std::cout << argv[0] << " is " << (is_rosetta() ? "" : "not ") << "using Rosetta.\n";
 
   return EXIT_SUCCESS;
 }

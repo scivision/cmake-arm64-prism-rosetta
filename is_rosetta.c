@@ -26,6 +26,6 @@ bool is_rosetta() {
 }
 
 int main(int argc, char **argv) {
-    printf("%s is %srunning under Rosetta.\n", argv[0], is_rosetta() ? "" : "not ");
+    printf("%s is %susing Rosetta.\n", argv[0], is_rosetta() ? "" : "not ");
     return EXIT_SUCCESS;
 }
