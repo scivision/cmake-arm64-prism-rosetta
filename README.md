@@ -1,5 +1,7 @@
 # CMake detect ARM64 x86-64 emulation: Windows Prism / macOS Rosetta
 
+[![ci](https://github.com/scivision/cmake-arm64-prism-rosetta/actions/workflows/ci.yml/badge.svg)](https://github.com/scivision/cmake-arm64-prism-rosetta/actions/workflows/ci.yml)
+
 Examples of detecting ARM64 x86-64 emulation using CMake, C++, Python, Matlab for Windows Prism or macOS Rosetta.
 
 For C, C++, Fortran by default the compiler uses native mode.
