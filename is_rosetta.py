@@ -11,7 +11,10 @@ def is_rosetta() -> bool:
         return False
 
     ret = subprocess.run(
-        ["sysctl", "-n", "sysctl.proc_translated"], shell=False, capture_output=True, text=True
+        ["sysctl", "-n", "sysctl.proc_translated"],
+        shell=False,
+        capture_output=True,
+        text=True,
     )
     if ret.stderr:
         return False

@@ -1,53 +1,32 @@
 #!/usr/bin/env python3
-# Detects if the current process is running under Prism emulation on Windows on ARM.
-# This checks if the process architecture is x86 or x64 while the native machine is ARM64.
+"""
+Python ctypes and system API calls didn't work reliably and didn't discern
+the executable types sufficiently to detect Prism.
+We found that env vars were simple and reliable.
+"""
 
+import os
 import sys
-import ctypes
-
-# Define IMAGE_FILE_MACHINE constants
-IMAGE_FILE_MACHINE_UNKNOWN = 0x0
-IMAGE_FILE_MACHINE_I386 = 0x14C
-IMAGE_FILE_MACHINE_AMD64 = 0x8664
-IMAGE_FILE_MACHINE_ARM64 = 0xAA64
+import platform
 
 
 def is_prism() -> bool:
+    """Return True if running under Microsoft Prism emulation (x64 on ARM64)."""
+    # PROCESSOR_ARCHITECTURE    = effective process arch
+    # PROCESSOR_ARCHITEW6432    = native arch when running 32-bit on 64-bit (WOW64)
+    # Under Prism x64 → effective = AMD64, native = ARM64 → PROCESSOR_ARCHITECTURE = AMD64
+    # Native ARM64   → PROCESSOR_ARCHITECTURE = ARM64
 
-    if sys.platform != "win32":
+    if os.name != "nt" or platform.machine().upper() != "ARM64":
         return False
 
-    # Load kernel32 DLL for Windows API
-    kernel32 = ctypes.windll.kernel32
-
-    # Create variables for process and native machine types
-    process_machine = ctypes.c_ushort(IMAGE_FILE_MACHINE_UNKNOWN)
-    native_machine = ctypes.c_ushort(IMAGE_FILE_MACHINE_UNKNOWN)
-
-    # Call IsWow64Process2
-    result = kernel32.IsWow64Process2(
-        kernel32.GetCurrentProcess(),
-        ctypes.byref(process_machine),
-        ctypes.byref(native_machine),
-    )
-
-    if not result:
-        # Failed to query; assume not emulated
-        return False
-
-    # Check if process is x86 or x64 and host is ARM64
-    return (
-        process_machine.value in (IMAGE_FILE_MACHINE_I386, IMAGE_FILE_MACHINE_AMD64)
-    ) and native_machine.value == IMAGE_FILE_MACHINE_ARM64
+    arch = os.environ.get("PROCESSOR_ARCHITECTURE", "").upper()
+    arch_wow64 = os.environ.get("PROCESSOR_ARCHITEW6432", "").upper()
+    effective_arch = arch_wow64 or arch
+    return effective_arch == "AMD64"
 
 
 if __name__ == "__main__":
-
-    txt = f"{sys.executable} is "
-
-    if not is_prism():
-        txt += "not "
-
-    txt += "using Microsoft Prism emulation."
-
-    print(txt)
+    exe = sys.executable
+    status = "" if is_prism() else "not "
+    print(f"{exe} is {status}using Microsoft Prism emulation.")
