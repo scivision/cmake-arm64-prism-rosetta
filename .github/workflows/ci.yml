@@ -22,7 +22,9 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
+        # Prism is only for x64 on arm64 CPU, not the other way around
       - name: Test
+        if: matrix.arch == 'x64'
         run: ctest --test-dir build -V -C Release
 
   windows:
@@ -42,7 +44,9 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
+      # Prism is only for x64 on arm64 CPU, not the other way around
       - name: Test
+        if: matrix.arch == 'x64'
         run: ctest --test-dir build -V -C Release
 
   macos:
