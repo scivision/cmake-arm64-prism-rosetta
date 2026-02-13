@@ -54,26 +54,26 @@ def is_prism() -> bool:
     For example, with MSYS2 python
     UCRT64
     C:/msys64/ucrt64/bin/python.exe is using Microsoft Prism emulation.
-    sys.platform → win32
-    sys.executable → C:/msys64/ucrt64/bin/python.exe
-    platform.architecture() → ('64bit', 'WindowsPE')
-    platform.machine() → AMD64
-    platform.processor() → ARMv8 (64-bit) Family 8 Model 1 Revision 201, Qualcomm Technologies Inc
-    platform.uname() → uname_result(system='Windows', node='sl7', release='11', version='10.0.26200', machine='AMD64')
-    os.environ.get('PROCESSOR_ARCHITECTURE') → AMD64
-    os.environ.get('PROCESSOR_ARCHITEW6432') → None
+    sys.platform -> win32
+    sys.executable -> C:/msys64/ucrt64/bin/python.exe
+    platform.architecture() -> ('64bit', 'WindowsPE')
+    platform.machine() -> AMD64
+    platform.processor() -> ARMv8 (64-bit) Family 8 Model 1 Revision 201, Qualcomm Technologies Inc
+    platform.uname() -> uname_result(system='Windows', node='sl7', release='11', version='10.0.26200', machine='AMD64')
+    os.environ.get('PROCESSOR_ARCHITECTURE') -> AMD64
+    os.environ.get('PROCESSOR_ARCHITEW6432') -> None
 
 
     CLANGARM64:
     C:/msys64/clangarm64/bin/python.exe is not using Microsoft Prism emulation.
-    sys.platform → win32
-    sys.executable → C:/msys64/clangarm64/bin/python.exe
-    platform.architecture() → ('64bit', 'WindowsPE')
-    platform.machine() → ARM64
-    platform.processor() → ARMv8 (64-bit) Family 8 Model 1 Revision 201, Qualcomm Technologies Inc
-    platform.uname() → uname_result(system='Windows', node='sl7', release='11', version='10.0.26200', machine='ARM64')
-    os.environ.get('PROCESSOR_ARCHITECTURE') → ARM64
-    os.environ.get('PROCESSOR_ARCHITEW6432') → None
+    sys.platform -> win32
+    sys.executable -> C:/msys64/clangarm64/bin/python.exe
+    platform.architecture() -> ('64bit', 'WindowsPE')
+    platform.machine() -> ARM64
+    platform.processor() -> ARMv8 (64-bit) Family 8 Model 1 Revision 201, Qualcomm Technologies Inc
+    platform.uname() -> uname_result(system='Windows', node='sl7', release='11', version='10.0.26200', machine='ARM64')
+    os.environ.get('PROCESSOR_ARCHITECTURE') -> ARM64
+    os.environ.get('PROCESSOR_ARCHITEW6432') -> None
     """
 
     if os.name != "nt":
@@ -91,15 +91,15 @@ if __name__ == "__main__":
     status = "" if is_prism() else "not "
     print(f"{exe} is {status}using Microsoft Prism emulation.")
     print()
-    print(f"sys.platform → {sys.platform}")
-    print(f"sys.executable → {sys.executable}")
-    print(f"platform.architecture() → {platform.architecture()}")
-    print(f"platform.machine() → {platform.machine()}")
-    print(f"platform.processor() → {platform.processor()}")
-    print(f"platform.uname() → {platform.uname()}")
+    print(f"sys.platform -> {sys.platform}")
+    print(f"sys.executable -> {sys.executable}")
+    print(f"platform.architecture() -> {platform.architecture()}")
+    print(f"platform.machine() -> {platform.machine()}")
+    print(f"platform.processor() -> {platform.processor()}")
+    print(f"platform.uname() -> {platform.uname()}")
     print(
-        f"os.environ.get('PROCESSOR_ARCHITECTURE') → {os.environ.get('PROCESSOR_ARCHITECTURE')}"
+        f"os.environ.get('PROCESSOR_ARCHITECTURE') -> {os.environ.get('PROCESSOR_ARCHITECTURE')}"
     )
     print(
-        f"os.environ.get('PROCESSOR_ARCHITEW6432') → {os.environ.get('PROCESSOR_ARCHITEW6432')}"
+        f"os.environ.get('PROCESSOR_ARCHITEW6432') -> {os.environ.get('PROCESSOR_ARCHITEW6432')}"
     )
