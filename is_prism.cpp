@@ -1,4 +1,4 @@
-#if defined(_WIN32) || defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
+#if defined(_WIN32) || defined(__MINGW32__) || defined(__CYGWIN__)
 #define WIN_LIKE
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
